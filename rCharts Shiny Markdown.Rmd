@@ -55,7 +55,7 @@ renderPlotly({plot_ly(observations(), x = x, y = y, z = z, type = "scatter3d", m
 ## Slide with R Code and Output
 
 ```{r}
-summary(cars)
+dplyr::top_n(dplyr::as.tbl(data), 10, loan_amnt) %>% dplyr::select(member_id, loan_amnt)
 ```
 
 
