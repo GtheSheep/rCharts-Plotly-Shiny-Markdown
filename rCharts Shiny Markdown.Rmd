@@ -54,8 +54,26 @@ renderPlotly({plot_ly(observations(), x = x, y = y, z = z, type = "scatter3d", m
 
 ## Slide with R Code and Output
 
-```{r}
-dplyr::top_n(dplyr::as.tbl(data), 10, loan_amnt) %>% dplyr::select(member_id, loan_amnt)
+```{r,echo=FALSE,comment=NA,warning=FALSE,message=FALSE}
+gradeVals <- dplyr::group_by(data, c("grade", "sub_grade")) %>% plyr::ddply(c("grade", "sub_grade"), summarize, balance=sum(as.numeric(loan_amnt)))
+d1 <- group_by(gradeVals, "grade") %>% ddply("grade", summarize, balance = sum(balance))
+d2 <- group_by(gradeVals, "sub_grade") %>% ddply("sub_grade", summarize, balance = sum(balance))
+d1 <- toJSONArray2(d1, json = F, name = F)
+d2 <- toJSONArray2(d2, json = F, name = F)
+pie <- Highcharts$new()
+pie$chart(type = "pie")
+pie$series(data = d1, size = "50%", dataLabels = list(enabled = FALSE))
+pie$series(data = d2,  size = "80%", innerSize = "60%", replace = FALSE)
+colors = "#! Highcharts.map(Highcharts.getOptions().colors, function(color) {
+  return {
+    radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+    stops: [
+      [0, color],
+      [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+      ]
+}}) !#"
+pie$plotOptions(pie=list(colors = colors))
+pie$show('iframesrc', cdn = TRUE)
 ```
 
 
