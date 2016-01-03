@@ -3,4 +3,4 @@ Shiny Markdown slides using rCharts and Plotly. The inspiration for this was tak
 https://resources.lendingclub.com/LoanStats3c.csv.zip  
 
 The Markdown itself is currently hosted at:  
-https://gjames.shinyapps.io/rCharts-Plotly-Shiny_Markdown
+https://gjames.shinyapps.io/rCharts-Plotly-Shiny-Markdown
